@@ -1,0 +1,30 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RDPMGR-SVC", "RDPMGR-SVC\RDPMGR-SVC.vcxproj", "{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}"
+EndProject
+Project("{D0BB1C1C-037B-49BB-92C1-A685C6496C34}") = "RDPMGR-CLIENT", "RDPMGR-CLIENT\RDPMGR-CLIENT.vcxproj", "{4623168F-8920-4414-B202-9227E68CDD3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}.Debug|x64.ActiveCfg = Debug|x64
+		{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}.Debug|x64.Build.0 = Debug|x64
+		{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}.Release|x64.ActiveCfg = Release|x64
+		{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}.Release|x64.Build.0 = Release|x64
+		{4623168F-8920-4414-B202-9227E68CDD3A}.Debug|x64.ActiveCfg = Debug|x64
+		{4623168F-8920-4414-B202-9227E68CDD3A}.Debug|x64.Build.0 = Debug|x64
+		{4623168F-8920-4414-B202-9227E68CDD3A}.Release|x64.ActiveCfg = Release|x64
+		{4623168F-8920-4414-B202-9227E68CDD3A}.Release|x64.Build.0 = Release|x64		
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8595442F-4CCC-4198-B45C-0E801D3F5FA1}
+	EndGlobalSection
+EndGlobal

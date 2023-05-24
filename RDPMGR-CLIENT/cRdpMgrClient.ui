@@ -1,0 +1,28 @@
+<UI version="4.0" >
+ <class>cRdpMgrClass</class>
+ <widget class="QMainWindow" name="cRdpMgrClass" >
+  <property name="objectName" >
+   <string notr="true">cRdpMgrClass</string>
+  </property>
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>cRdpMgr</string>
+  </property>  <widget class="QMenuBar" name="menuBar" />
+  <widget class="QToolBar" name="mainToolBar" />
+  <widget class="QWidget" name="centralWidget" />
+  <widget class="QStatusBar" name="statusBar" />
+ </widget>
+ <layoutDefault spacing="6" margin="11" />
+ <pixmapfunction></pixmapfunction>
+ <resources>
+   <include location="cRdpMgr.qrc"/>
+ </resources>
+ <connections/>
+</UI>
