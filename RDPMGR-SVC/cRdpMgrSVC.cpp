@@ -1,11 +1,15 @@
-#include "stdafx.h"
-#include "cRdpMgrSVC.h"
+﻿#include "stdafx.h"
+#include "cRdpMgrSvc.h"
 
-cRdpMgrSVC::cRdpMgrSVC(QWidget *parent)
-    : QMainWindow(parent)
+#include "moduleDefence.h"
+
+cRdpMgrSvc::cRdpMgrSvc( QWidget* parent )
+    : QMainWindow( parent )
 {
     ui.setupUi(this);
+
+    auto defence = TyStDefence::GetInstance();
 }
 
-cRdpMgrSVC::~cRdpMgrSVC()
+cRdpMgrSvc::~cRdpMgrSvc()
 {}

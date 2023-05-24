@@ -1,10 +1,11 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RDPMGR-SVC", "RDPMGR-SVC\RDPMGR-SVC.vcxproj", "{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RDPMGR-SVC", "RDPMGR-SVC\RDPMGR.vcxproj", "{989DA4D1-18A4-42BD-8FB8-1231E3C546A9}"
 EndProject
-Project("{D0BB1C1C-037B-49BB-92C1-A685C6496C34}") = "RDPMGR-CLIENT", "RDPMGR-CLIENT\RDPMGR-CLIENT.vcxproj", "{4623168F-8920-4414-B202-9227E68CDD3A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RDPMGR-CLIENT", "RDPMGR-CLIENT\RDPMGR-CLIENT.vcxproj", "{629581E3-0AEE-464B-9CAB-DD053C51DF27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,19 +13,19 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}.Debug|x64.ActiveCfg = Debug|x64
-		{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}.Debug|x64.Build.0 = Debug|x64
-		{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}.Release|x64.ActiveCfg = Release|x64
-		{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}.Release|x64.Build.0 = Release|x64
-		{4623168F-8920-4414-B202-9227E68CDD3A}.Debug|x64.ActiveCfg = Debug|x64
-		{4623168F-8920-4414-B202-9227E68CDD3A}.Debug|x64.Build.0 = Debug|x64
-		{4623168F-8920-4414-B202-9227E68CDD3A}.Release|x64.ActiveCfg = Release|x64
-		{4623168F-8920-4414-B202-9227E68CDD3A}.Release|x64.Build.0 = Release|x64		
+		{989DA4D1-18A4-42BD-8FB8-1231E3C546A9}.Debug|x64.ActiveCfg = Debug|x64
+		{989DA4D1-18A4-42BD-8FB8-1231E3C546A9}.Debug|x64.Build.0 = Debug|x64
+		{989DA4D1-18A4-42BD-8FB8-1231E3C546A9}.Release|x64.ActiveCfg = Release|x64
+		{989DA4D1-18A4-42BD-8FB8-1231E3C546A9}.Release|x64.Build.0 = Release|x64
+		{629581E3-0AEE-464B-9CAB-DD053C51DF27}.Debug|x64.ActiveCfg = Debug|x64
+		{629581E3-0AEE-464B-9CAB-DD053C51DF27}.Debug|x64.Build.0 = Debug|x64
+		{629581E3-0AEE-464B-9CAB-DD053C51DF27}.Release|x64.ActiveCfg = Release|x64
+		{629581E3-0AEE-464B-9CAB-DD053C51DF27}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8595442F-4CCC-4198-B45C-0E801D3F5FA1}
+		SolutionGuid = {1C24E425-8A41-45FE-99C9-83B553BE2D99}
 	EndGlobalSection
 EndGlobal

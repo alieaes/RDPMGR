@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "cRdpMgrSVC.h"
+#include "cRdpMgrSvc.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    cRdpMgrSVC w;
+    cRdpMgrSvc w;
     w.show();
     return a.exec();
 }

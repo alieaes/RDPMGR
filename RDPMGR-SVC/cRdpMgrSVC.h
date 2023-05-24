@@ -1,16 +1,16 @@
-#pragma once
+﻿#pragma once
 
 #include <QtWidgets/QMainWindow>
-#include "ui_cRdpMgrSVC.h"
+#include "ui_cRdpMgrSvc.h"
 
-class cRdpMgrSVC : public QMainWindow
+class cRdpMgrSvc : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    cRdpMgrSVC(QWidget *parent = nullptr);
-    ~cRdpMgrSVC();
+    cRdpMgrSvc(QWidget *parent = nullptr);
+    ~cRdpMgrSvc();
 
 private:
-    Ui::cRdpMgrClass ui;
+    Ui::cRdpMgrSvcClass ui;
 };

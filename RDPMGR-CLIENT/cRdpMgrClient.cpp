@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "cRdpMgrClient.h"
 
 cRdpMgrClient::cRdpMgrClient(QWidget *parent)

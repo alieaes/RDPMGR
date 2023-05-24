@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QtWidgets/QMainWindow>
 #include "ui_cRdpMgrClient.h"
@@ -12,5 +12,5 @@ public:
     ~cRdpMgrClient();
 
 private:
-    Ui::cRdpMgrClass ui;
+    Ui::cRdpMgrClientClass ui;
 };

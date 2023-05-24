@@ -11,11 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0D632CEA-1883-4FD6-9B2E-3BEECE857DFE}</ProjectGuid>
+    <ProjectGuid>{989DA4D1-18A4-42BD-8FB8-1231E3C546A9}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+    <ProjectName>RDPMGR-SVC</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -65,22 +66,22 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(Solutiondir)SharedLibs;$(Projectdir);$(Solutiondir)protobuf\src;$(Solutiondir)SharedLibs\Network\include;$(Projectdir)Module;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(Solutiondir)SharedLibs;$(Projectdir);$(scitersdk)\include;$(Solutiondir)protobuf\src;$(Solutiondir)SharedLibs\Network\include;$(Projectdir)Module;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(Solutiondir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libprotobuf-VS2022-$(PlatformShortName)-$(Configuration).lib;sqlite3-$(PlatformShortName).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Solutiondir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(Solutiondir)SharedLibs;$(Projectdir);$(Solutiondir)protobuf\src;$(Solutiondir)SharedLibs\Network\include;$(Projectdir)Module;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(Solutiondir)SharedLibs;$(Projectdir);$(scitersdk)\include;$(Solutiondir)protobuf\src;$(Solutiondir)SharedLibs\Network\include;$(Projectdir)Module;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(Solutiondir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libprotobuf-VS2022-$(PlatformShortName)-$(Configuration).lib;sqlite3-$(PlatformShortName).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Solutiondir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
@@ -121,12 +122,27 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="cRdpMgrSVC.qrc" />
-    <QtUic Include="cRdpMgrSVC.ui" />
-    <QtMoc Include="cRdpMgrSVC.h" />
-    <ClCompile Include="cRdpMgrSVC.cpp" />
+    <QtRcc Include="cRdpMgrSvc.qrc" />
+    <QtUic Include="cRdpMgrSvc.ui" />
+    <QtMoc Include="cRdpMgrSvc.h" />
+    <ClCompile Include="..\SharedLibs\String\SharedString.cpp" />
+    <ClCompile Include="..\SharedLibs\String\SharedXString.cpp" />
+    <ClCompile Include="..\SharedLibs\Utils\SharedFile.cpp" />
+    <ClCompile Include="..\SharedLibs\Windows\SharedWinTools.cpp" />
+    <ClCompile Include="cRdpMgrSvc.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClInclude Include="..\SharedLibs\SharedBase.h" />
+    <ClInclude Include="..\SharedLibs\Shared_Config.hpp" />
+    <ClInclude Include="..\SharedLibs\Shared_Defs.h" />
+    <ClInclude Include="..\SharedLibs\Singleton.h" />
+    <QtMoc Include="Module\moduleDefence.h" />
+    <ClInclude Include="..\SharedLibs\String\SharedFormat.h" />
+    <ClInclude Include="..\SharedLibs\String\SharedString.h" />
+    <ClInclude Include="..\SharedLibs\String\SharedXString.h" />
+    <ClInclude Include="..\SharedLibs\Utils\SharedFile.h" />
+    <ClInclude Include="..\SharedLibs\Windows\SharedWinTools.h" />
     <ClInclude Include="stdafx.h" />
+    <ClCompile Include="Module\moduleDefence.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">Create</PrecompiledHeader>

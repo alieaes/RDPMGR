@@ -1,4 +1,4 @@
 <RCC>
-    <qresource prefix="cRdpMgr">
+    <qresource prefix="cRdpMgrSvc">
     </qresource>
 </RCC>
