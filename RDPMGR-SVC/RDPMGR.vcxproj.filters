@@ -27,14 +27,17 @@
     <Filter Include="Libs">
       <UniqueIdentifier>{a57a644a-8ddf-489c-8ba3-6c051c37bd2c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Module\Windows">
-      <UniqueIdentifier>{4f0e2895-4e5f-4f7a-9fa0-6a6f9cebe895}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Module\String">
+    <Filter Include="Libs\String">
       <UniqueIdentifier>{8fba69d4-2545-490c-911b-0059a56003c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Module\Utils">
+    <Filter Include="Libs\Utils">
       <UniqueIdentifier>{bef99344-42ea-42a8-b681-15f760dc35a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libs\Windows">
+      <UniqueIdentifier>{4f0e2895-4e5f-4f7a-9fa0-6a6f9cebe895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libs\Logger">
+      <UniqueIdentifier>{221d8bc6-c01e-42d0-87e1-815adbc31989}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,16 +68,19 @@
       <Filter>Module</Filter>
     </ClCompile>
     <ClCompile Include="..\SharedLibs\Windows\SharedWinTools.cpp">
-      <Filter>Module\Windows</Filter>
+      <Filter>Libs\Windows</Filter>
     </ClCompile>
     <ClCompile Include="..\SharedLibs\String\SharedString.cpp">
-      <Filter>Module\String</Filter>
+      <Filter>Libs\String</Filter>
     </ClCompile>
     <ClCompile Include="..\SharedLibs\String\SharedXString.cpp">
-      <Filter>Module\String</Filter>
+      <Filter>Libs\String</Filter>
     </ClCompile>
     <ClCompile Include="..\SharedLibs\Utils\SharedFile.cpp">
-      <Filter>Module\Utils</Filter>
+      <Filter>Libs\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Logger\SharedLogger.cpp">
+      <Filter>Libs\Logger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,19 +97,22 @@
       <Filter>Libs</Filter>
     </ClInclude>
     <ClInclude Include="..\SharedLibs\Windows\SharedWinTools.h">
-      <Filter>Module\Windows</Filter>
+      <Filter>Libs\Windows</Filter>
     </ClInclude>
     <ClInclude Include="..\SharedLibs\String\SharedFormat.h">
-      <Filter>Module\String</Filter>
+      <Filter>Libs\String</Filter>
     </ClInclude>
     <ClInclude Include="..\SharedLibs\String\SharedString.h">
-      <Filter>Module\String</Filter>
+      <Filter>Libs\String</Filter>
     </ClInclude>
     <ClInclude Include="..\SharedLibs\String\SharedXString.h">
-      <Filter>Module\String</Filter>
+      <Filter>Libs\String</Filter>
     </ClInclude>
     <ClInclude Include="..\SharedLibs\Utils\SharedFile.h">
-      <Filter>Module\Utils</Filter>
+      <Filter>Libs\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Logger\SharedLogger.h">
+      <Filter>Libs\Logger</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -26,10 +26,15 @@ public:
     bool                                             InActiveRemoteConnection();
     
 private:
+
+    SYSTEMTIME                                       getLocalTime();
+
     std::thread                                      _thEventLog;
     std::thread                                      _thCheckRemoteState;
 
     bool                                             _isStop;
+
+    QDateTime                                        _dtLastCheck;
 };
 
 typedef Shared::Singletons::Singleton<moduleDefence> TyStDefence;

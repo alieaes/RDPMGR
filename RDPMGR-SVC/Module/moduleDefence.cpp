@@ -4,16 +4,16 @@
 #include "SharedBase.h"
 #include "Windows/SharedWinTools.h"
 
+#include <QtXml/QtXml>
+
 #pragma comment(lib, "wevtapi.lib")
 
 #include <winevt.h>
 
-#define ARRAY_SIZE 10
-#define TIMEOUT 1000  // 1 second; Set and use in place of INFINITE in EvtNext call
-
 moduleDefence::moduleDefence()
 {
     _isStop = false;
+    _dtLastCheck = QDateTime::currentDateTime();
 
     _thEventLog = std::thread( std::bind( &moduleDefence::AbnormalDetectionThread, this ) );
     _thCheckRemoteState = std::thread( std::bind( &moduleDefence::RemoteStateCheckThread, this ) );
@@ -36,7 +36,61 @@ void moduleDefence::AbnormalDetectionThread()
 {
     while( _isStop == false )
     {
-        
+        HANDLE hEventLog = NULL;
+        EVT_HANDLE hEvent = NULL;
+
+        // TEST 종료 후 제거
+        _dtLastCheck = _dtLastCheck.addMonths( -1 );
+
+        XString sDateTime = _dtLastCheck.toString( QString( "yyyy-MM-ddTHH:mm:ss.000Z" ) );
+
+        // EventID는 추후 UI에서 받아서 추가할 수 있도록 함. 현재 목적은 brute-force attack을 막기위함이니 4625만 막아도 충분할듯함.
+        DWORD dwEventID = 4625;
+
+        // 이벤트 XPATH 쿼리 생성
+        XString sQuery = Shared::Format::Format( "*[System[TimeCreated[@SystemTime > '{}'] and EventID={} ]]", sDateTime, dwEventID );
+
+        do
+        {
+            hEventLog = EvtOpenLog( NULL, L"Security", EvtOpenChannelPath );
+
+            if( hEventLog == NULL )
+                break;
+
+            hEvent = EvtQuery( NULL, L"Security", sQuery, EvtQueryChannelPath );
+
+            if( hEvent == NULL )
+                break;
+
+            DWORD dwBufferUsed = 0;
+            EVT_HANDLE hEvents[ 1024 ];
+
+            if( EvtNext( hEvent, 100, &hEvents[ 0 ], 1000, 0, &dwBufferUsed ) == FALSE )
+            {
+                if( GetLastError() == ERROR_NO_MORE_ITEMS )
+                    break;
+            }
+
+            for( int idx = 0; idx < dwBufferUsed; idx++ )
+            {
+                if( PrintEvent( hEvents[ idx ] ) == ERROR_SUCCESS )
+                {
+                    EvtClose( hEvents[ idx ] );
+                    hEvents[ idx ] = NULL;
+                }
+            }
+
+        } while( false );
+
+        if( hEvent != NULL )
+            EvtClose( hEvent );
+
+        if( hEventLog != NULL )
+            EvtClose( hEventLog );
+
+        _dtLastCheck = QDateTime::currentDateTime();
+
+        Sleep( 1000 );
     }
 }
 
@@ -56,7 +110,7 @@ bool moduleDefence::IsRemoteState()
     return GetSystemMetrics( SM_REMOTESESSION ) != 0;
 }
 
-DWORD moduleDefence::PrintEvent(EVT_HANDLE hEvent)
+DWORD moduleDefence::PrintEvent( EVT_HANDLE hEvent )
 {
     DWORD status = ERROR_SUCCESS;
     DWORD dwBufferSize = 0;
@@ -64,35 +118,71 @@ DWORD moduleDefence::PrintEvent(EVT_HANDLE hEvent)
     DWORD dwPropertyCount = 0;
     LPWSTR pRenderedContent = NULL;
 
-    // The EvtRenderEventXml flag tells EvtRender to render the event as an XML string.
-    if( !EvtRender( NULL, hEvent, EvtRenderEventXml, dwBufferSize, pRenderedContent, &dwBufferUsed, &dwPropertyCount ) )
+    do
     {
-        if( ERROR_INSUFFICIENT_BUFFER == ( status = GetLastError() ) )
+        if( EvtRender( NULL, hEvent, EvtRenderEventXml, dwBufferSize, pRenderedContent, &dwBufferUsed, &dwPropertyCount ) == FALSE )
         {
-            dwBufferSize = dwBufferUsed;
-            pRenderedContent = ( LPWSTR )malloc( dwBufferSize );
-            if( pRenderedContent )
+            status = GetLastError();
+            if( status == ERROR_INSUFFICIENT_BUFFER )
             {
-                EvtRender( NULL, hEvent, EvtRenderEventXml, dwBufferSize, pRenderedContent, &dwBufferUsed, &dwPropertyCount );
+                dwBufferSize = dwBufferUsed;
+                pRenderedContent = ( LPWSTR )malloc( dwBufferSize );
+                if( pRenderedContent )
+                {
+                    EvtRender( NULL, hEvent, EvtRenderEventXml, dwBufferSize, pRenderedContent, &dwBufferUsed, &dwPropertyCount );
+                }
+                else
+                {
+                    wprintf( L"malloc failed\n" );
+                    status = ERROR_OUTOFMEMORY;
+                    break;
+                }
             }
-            else
+
+            if( status != ERROR_SUCCESS )
             {
-                wprintf( L"malloc failed\n" );
-                status = ERROR_OUTOFMEMORY;
-                goto cleanup;
+                wprintf( L"EvtRender failed with %d\n", GetLastError() );
+                break;
             }
         }
 
-        if( ERROR_SUCCESS != ( status = GetLastError() ) )
+    }
+    while( false );
+
+    XString s = pRenderedContent;
+    QString sIpAddress;
+    int nPID = -1;
+
+    QXmlStreamReader xmlReader( s );
+
+    while( !xmlReader.atEnd() && !xmlReader.hasError() )
+    {
+        if( xmlReader.readNextStartElement() )
         {
-            wprintf( L"EvtRender failed with %d\n", GetLastError() );
-            goto cleanup;
+            if( xmlReader.name().toString().compare( "Data", Qt::CaseInsensitive ) == 0 )
+            {
+                QXmlStreamAttributes attributes = xmlReader.attributes();
+                QString name = attributes.value( "Name" ).toString();
+
+                if( name.compare( "IpAddress", Qt::CaseInsensitive ) == 0 )
+                {
+                    xmlReader.readNext();
+                    sIpAddress = xmlReader.text().toString();
+                    break;
+                }
+
+                // RDP로 연결한 경우 PID가 0으로 나옴, 확인 후에 0이 맞다면 같이 체크하도록 함.
+                if( name.compare( "ProcessId", Qt::CaseInsensitive ) == 0 )
+                {
+                    xmlReader.readNext();
+                    nPID = xmlReader.text().toInt();
+                    break;
+                }
+            }
         }
     }
 
-    wprintf( L"\n\n%s", pRenderedContent );
-
-cleanup:
+    // TODO : 값이 존재하고, localhost가 아니라면 해당 IP의 접근 횟수를 확인해 일정 횟수 이상이면 방화벽 차단을 넣도록 함.
 
     if( pRenderedContent )
         free( pRenderedContent );
@@ -104,88 +194,51 @@ void moduleDefence::FilterEventLog()
 {
     HANDLE hEventLog = NULL;
     EVT_HANDLE hEvent = NULL;
-
-    // 시작 시간과 종료 시간 설정
-    SYSTEMTIME startTime;
-    SYSTEMTIME endTime;
-    memset( &startTime, 0, sizeof( startTime ) );
-    memset( &endTime, 0, sizeof( endTime ) );
-    startTime.wYear = 2023;
-    startTime.wMonth = 5;
-    startTime.wDay = 1;
-    endTime.wYear = 2023;
-    endTime.wMonth = 5;
-    endTime.wDay = 10;
-
-    // 시작 시간과 종료 시간을 FILETIME 형식으로 변환
-    FILETIME ftStartTime;
-    FILETIME ftEndTime;
-    SystemTimeToFileTime( &startTime, &ftStartTime );
-    SystemTimeToFileTime( &endTime, &ftEndTime );
+    _dtLastCheck = _dtLastCheck.addMonths( -1 );
+    XString sDateTime = _dtLastCheck.toString( QString( "yyyy-MM-ddTHH:mm:ss.000Z" ) );
+    
+    DWORD dwEventID = 4648;
 
     // 이벤트 XPATH 쿼리 생성
-    WCHAR query[ 256 ];
-    DWORD eventID = 1000;  // 이벤트 ID
-    swprintf_s( query, L"*[System[TimeCreated[@SystemTime&gt;='%llu' and @SystemTime&lt;='%llu'] and EventID=%u]]",
-                *( ULONGLONG* )&ftStartTime, *( ULONGLONG* )&ftEndTime, eventID );
+    XString sQuery = Shared::Format::Format( "*[System[TimeCreated[@SystemTime > '{}'] and EventID={} ]]", sDateTime, dwEventID );
 
-    hEventLog = EvtOpenLog( NULL, L"Application", EvtOpenChannelPath );
-    if( NULL == hEventLog )
+    do
     {
-        wprintf( L"EvtOpenLog failed with %lu\n", GetLastError() );
-        goto cleanup;
-    }
+        hEventLog = EvtOpenLog( NULL, L"Security", EvtOpenChannelPath );
 
-    hEvent = EvtQuery( NULL, L"Application", query, EvtQueryChannelPath );
-    if( NULL == hEvent )
-    {
-        wprintf( L"EvtQuery failed with %lu\n", GetLastError() );
-        goto cleanup;
-    }
+        if( hEventLog == NULL )
+            break;
 
-    for( ;;)
-    {
-        DWORD dwBufferSize = 0;
+        hEvent = EvtQuery( NULL, L"Security", sQuery, EvtQueryChannelPath );
+
+        if( hEvent == NULL )
+            break;
+
         DWORD dwBufferUsed = 0;
-        DWORD dwPropertyCount = 0;
-        EVT_HANDLE hEvents[ ARRAY_SIZE ];
+        EVT_HANDLE hEvents[ 1024 ];
 
-        if( !EvtNext( hEvent, 100, &hEvents[ 0 ], 1000, 0, &dwBufferUsed ) )
+        if( EvtNext( hEvent, 100, &hEvents[ 0 ], 1000, 0, &dwBufferUsed ) == FALSE )
         {
-            if( ERROR_NO_MORE_ITEMS != GetLastError() )
-            {
-                wprintf( L"EvtNext failed with %lu\n", GetLastError() );
-            }
-            goto cleanup;
+            if( GetLastError() == ERROR_NO_MORE_ITEMS )
+                continue;
         }
 
-        for( DWORD i = 0; i < dwBufferUsed; i++ )
+        for( int idx = 0; idx < dwBufferUsed; idx++ )
         {
-            if( ERROR_SUCCESS == ( PrintEvent( hEvents[ i ] ) ) )
+            if( PrintEvent( hEvents[ idx ] ) == ERROR_SUCCESS )
             {
-                EvtClose( hEvents[ i ] );
-                hEvents[ i ] = NULL;
-            }
-            else
-            {
-                goto cleanup;
+                EvtClose( hEvents[ idx ] );
+                hEvents[ idx ] = NULL;
             }
         }
-
-        //EvtClearLog( hEventLog, NULL );
     }
+    while( false );
 
-cleanup:
-
-    if( hEvent )
-    {
+    if( hEvent != NULL )
         EvtClose( hEvent );
-    }
 
-    if( hEventLog )
-    {
+    if( hEventLog != NULL )
         EvtClose( hEventLog );
-    }
 }
 
 bool moduleDefence::ActiveRemoteConnection()
@@ -196,4 +249,12 @@ bool moduleDefence::ActiveRemoteConnection()
 bool moduleDefence::InActiveRemoteConnection()
 {
     return Shared::Windows::SetRegDwordValue( HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Terminal Server", L"fDenyTSConnections", 1, true );
+}
+
+SYSTEMTIME moduleDefence::getLocalTime()
+{
+    SYSTEMTIME ret;
+    GetLocalTime( &ret );
+
+    return ret;
 }
