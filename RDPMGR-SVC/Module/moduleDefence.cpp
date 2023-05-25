@@ -133,17 +133,13 @@ DWORD moduleDefence::PrintEvent( EVT_HANDLE hEvent )
                 }
                 else
                 {
-                    wprintf( L"malloc failed\n" );
                     status = ERROR_OUTOFMEMORY;
                     break;
                 }
             }
 
             if( status != ERROR_SUCCESS )
-            {
-                wprintf( L"EvtRender failed with %d\n", GetLastError() );
                 break;
-            }
         }
 
     }
