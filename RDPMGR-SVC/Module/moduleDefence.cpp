@@ -90,7 +90,13 @@ void moduleDefence::AbnormalDetectionThread()
 
         _dtLastCheck = QDateTime::currentDateTime();
 
-        Sleep( 1000 );
+        for( int idx = 0; idx < 100; idx++ )
+        {
+            if( _isStop == true )
+                break;
+
+            Sleep( 10 );
+        }
     }
 }
 
@@ -101,7 +107,13 @@ void moduleDefence::RemoteStateCheckThread()
         if( IsRemoteState() == false )
             InActiveRemoteConnection();
 
-        Sleep( 3000 );
+        for( int idx = 0; idx < 300; idx++ )
+        {
+            if( _isStop == true )
+                break;
+
+            Sleep( 10 );
+        }
     }
 }
 
@@ -178,9 +190,23 @@ DWORD moduleDefence::PrintEvent( EVT_HANDLE hEvent )
         }
     }
 
-    // TODO : 값이 존재하고, localhost가 아니라면 해당 IP의 접근 횟수를 확인해 일정 횟수 이상이면 방화벽 차단을 넣도록 함.
+    // TODO : 값이 존재하고, 예외 IP가 아니라면 해당 IP의 접근 횟수를 확인해 일정 횟수 이상이면 방화벽 차단을 넣도록 함.
 
-    if( pRenderedContent )
+    do
+    {
+        if( sIpAddress.isEmpty() == true )
+            break;
+
+        // RDP 연결은 PID가 0으로 표기됨. 이 부분은 확인 후 주석 해제 필요
+        // if( nPID != 0 )
+        //     break;
+
+        //if( sIpAddress.compare( "localhost" ) )
+
+    }
+    while (false);
+
+    if( pRenderedContent != NULLPTR )
         free( pRenderedContent );
 
     return status;
@@ -190,13 +216,17 @@ void moduleDefence::FilterEventLog()
 {
     HANDLE hEventLog = NULL;
     EVT_HANDLE hEvent = NULL;
+
+#ifdef _DEBUG
     _dtLastCheck = _dtLastCheck.addMonths( -1 );
+#endif
+
     XString sDateTime = _dtLastCheck.toString( QString( "yyyy-MM-ddTHH:mm:ss.000Z" ) );
     
     DWORD dwEventID = 4648;
 
     // 이벤트 XPATH 쿼리 생성
-    XString sQuery = Shared::Format::Format( "*[System[TimeCreated[@SystemTime > '{}'] and EventID={} ]]", sDateTime, dwEventID );
+    XString sQuery = Shared::Format::Format( "*[System[TimeCreated[@SystemTime > '{}'] and EventID={} ]]", sDateTime.toWString(), dwEventID );
 
     do
     {
@@ -239,12 +269,12 @@ void moduleDefence::FilterEventLog()
 
 bool moduleDefence::ActiveRemoteConnection()
 {
-    return Shared::Windows::SetRegDwordValue( HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Terminal Server", L"fDenyTSConnections", 0, true );
+    return Shared::Windows::SetRegDWORDValue( HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Terminal Server", L"fDenyTSConnections", 0, true );
 }
 
 bool moduleDefence::InActiveRemoteConnection()
 {
-    return Shared::Windows::SetRegDwordValue( HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Terminal Server", L"fDenyTSConnections", 1, true );
+    return Shared::Windows::SetRegDWORDValue( HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Terminal Server", L"fDenyTSConnections", 1, true );
 }
 
 SYSTEMTIME moduleDefence::getLocalTime()

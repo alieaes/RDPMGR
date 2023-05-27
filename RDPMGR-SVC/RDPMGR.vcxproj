@@ -67,6 +67,7 @@
     <ClCompile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(Solutiondir)SharedLibs;$(Projectdir);$(scitersdk)\include;$(Solutiondir)protobuf\src;$(Solutiondir)SharedLibs\Network\include;$(Projectdir)Module;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWS;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libprotobuf-VS2022-$(PlatformShortName)-$(Configuration).lib;sqlite3-$(PlatformShortName).lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -78,6 +79,7 @@
     <ClCompile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(Solutiondir)SharedLibs;$(Projectdir);$(scitersdk)\include;$(Solutiondir)protobuf\src;$(Solutiondir)SharedLibs\Network\include;$(Projectdir)Module;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWS;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libprotobuf-VS2022-$(PlatformShortName)-$(Configuration).lib;sqlite3-$(PlatformShortName).lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -126,6 +128,24 @@
     <QtUic Include="cRdpMgrSvc.ui" />
     <QtMoc Include="cRdpMgrSvc.h" />
     <ClCompile Include="..\SharedLibs\Logger\SharedLogger.cpp" />
+    <ClCompile Include="..\SharedLibs\Network\include\Socket\SecureSocket.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Network\include\Socket\Socket.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Network\include\Socket\TCPClient.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Network\include\Socket\TCPServer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Network\SharedNetwork.cpp" />
+    <ClCompile Include="..\SharedLibs\QT\SharedQtSwitch.cpp" />
     <ClCompile Include="..\SharedLibs\String\SharedString.cpp" />
     <ClCompile Include="..\SharedLibs\String\SharedXString.cpp" />
     <ClCompile Include="..\SharedLibs\Utils\SharedFile.cpp" />
@@ -133,6 +153,12 @@
     <ClCompile Include="cRdpMgrSvc.cpp" />
     <ClCompile Include="main.cpp" />
     <ClInclude Include="..\SharedLibs\Logger\SharedLogger.h" />
+    <QtMoc Include="..\SharedLibs\QT\SharedQtSwitch.h" />
+    <ClInclude Include="..\SharedLibs\Network\include\Socket\SecureSocket.h" />
+    <ClInclude Include="..\SharedLibs\Network\include\Socket\Socket.h" />
+    <ClInclude Include="..\SharedLibs\Network\include\Socket\TCPClient.h" />
+    <ClInclude Include="..\SharedLibs\Network\include\Socket\TCPServer.h" />
+    <ClInclude Include="..\SharedLibs\Network\SharedNetwork.h" />
     <ClInclude Include="..\SharedLibs\SharedBase.h" />
     <ClInclude Include="..\SharedLibs\Shared_Config.hpp" />
     <ClInclude Include="..\SharedLibs\Shared_Defs.h" />

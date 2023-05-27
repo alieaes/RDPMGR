@@ -39,6 +39,15 @@
     <Filter Include="Libs\Logger">
       <UniqueIdentifier>{221d8bc6-c01e-42d0-87e1-815adbc31989}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Libs\Qt">
+      <UniqueIdentifier>{e2e0211f-d0ff-4c66-bf90-93cda99bcd9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libs\Network">
+      <UniqueIdentifier>{69d9a55b-3be6-47af-9e98-1956f490297e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libs\Network\Include">
+      <UniqueIdentifier>{4593d867-c77d-4571-93b0-736c984530c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="cRdpMgrSvc.qrc">
@@ -82,6 +91,24 @@
     <ClCompile Include="..\SharedLibs\Logger\SharedLogger.cpp">
       <Filter>Libs\Logger</Filter>
     </ClCompile>
+    <ClCompile Include="..\SharedLibs\QT\SharedQtSwitch.cpp">
+      <Filter>Libs\Qt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Network\SharedNetwork.cpp">
+      <Filter>Libs\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Network\include\Socket\SecureSocket.cpp">
+      <Filter>Libs\Network\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Network\include\Socket\Socket.cpp">
+      <Filter>Libs\Network\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Network\include\Socket\TCPClient.cpp">
+      <Filter>Libs\Network\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Network\include\Socket\TCPServer.cpp">
+      <Filter>Libs\Network\Include</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SharedLibs\Shared_Config.hpp">
@@ -114,10 +141,28 @@
     <ClInclude Include="..\SharedLibs\Logger\SharedLogger.h">
       <Filter>Libs\Logger</Filter>
     </ClInclude>
+    <ClInclude Include="..\SharedLibs\Network\SharedNetwork.h">
+      <Filter>Libs\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Network\include\Socket\SecureSocket.h">
+      <Filter>Libs\Network\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Network\include\Socket\Socket.h">
+      <Filter>Libs\Network\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Network\include\Socket\TCPClient.h">
+      <Filter>Libs\Network\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Network\include\Socket\TCPServer.h">
+      <Filter>Libs\Network\Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Module\moduleDefence.h">
       <Filter>Module</Filter>
+    </QtMoc>
+    <QtMoc Include="..\SharedLibs\QT\SharedQtSwitch.h">
+      <Filter>Libs\Qt</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

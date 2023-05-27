@@ -6,6 +6,7 @@
 #include <winevt.h>
 
 #include "Singleton.h"
+#include "String/SharedXString.h"
 
 class moduleDefence : public QObject
 {
@@ -35,6 +36,8 @@ private:
     bool                                             _isStop;
 
     QDateTime                                        _dtLastCheck;
+
+    std::map< XString, DWORD >                       _mapAbnormalIP;
 };
 
 typedef Shared::Singletons::Singleton<moduleDefence> TyStDefence;
