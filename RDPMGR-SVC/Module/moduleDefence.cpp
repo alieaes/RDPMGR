@@ -18,6 +18,8 @@ moduleDefence::moduleDefence()
     _thEventLog = std::thread( std::bind( &moduleDefence::AbnormalDetectionThread, this ) );
     _thCheckRemoteState = std::thread( std::bind( &moduleDefence::RemoteStateCheckThread, this ) );
 
+    _nAbnomalCount = 5;
+
     FilterEventLog();
 }
 
@@ -201,7 +203,7 @@ DWORD moduleDefence::PrintEvent( EVT_HANDLE hEvent )
         // if( nPID != 0 )
         //     break;
 
-        //if( sIpAddress.compare( "localhost" ) )
+        //if( sIpAddress.compare( "localhost", Qt::CaseInsensitive ) )
 
     }
     while (false);

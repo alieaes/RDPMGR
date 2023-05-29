@@ -38,6 +38,8 @@ private:
     QDateTime                                        _dtLastCheck;
 
     std::map< XString, DWORD >                       _mapAbnormalIP;
+
+    std::atomic_uint                                 _nAbnomalCount;
 };
 
 typedef Shared::Singletons::Singleton<moduleDefence> TyStDefence;
