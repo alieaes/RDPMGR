@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.35906.104 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RdpMgr-UI", "RdpMgr-UI\RdpMgr-UI.vcxproj", "{FA28209F-1D72-4EB1-8F9A-267E1C8C93A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA28209F-1D72-4EB1-8F9A-267E1C8C93A8}.Debug|x64.ActiveCfg = Debug|x64
+		{FA28209F-1D72-4EB1-8F9A-267E1C8C93A8}.Debug|x64.Build.0 = Debug|x64
+		{FA28209F-1D72-4EB1-8F9A-267E1C8C93A8}.Release|x64.ActiveCfg = Release|x64
+		{FA28209F-1D72-4EB1-8F9A-267E1C8C93A8}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7B0468F-E6EA-47A8-831F-7F684406090E}
+	EndGlobalSection
+EndGlobal
