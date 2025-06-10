@@ -68,11 +68,16 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -117,6 +122,7 @@
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </QtMoc>
     <ClCompile Include="..\ExLibs\IPC\EXIPC.cpp" />
+    <ClCompile Include="..\ExLibs\Windows\EXProcess.cpp" />
     <ClCompile Include="CRdpMgrSVC.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -125,6 +131,7 @@
     <ClInclude Include="..\ExLibs\External\qtservice\qtservice_p.h" />
     <ClInclude Include="..\ExLibs\IPC\EXIPC.hpp" />
     <ClInclude Include="..\ExLibs\Util\ExDataStruct.hpp" />
+    <ClInclude Include="..\ExLibs\Windows\EXProcess.hpp" />
     <ClInclude Include="CRdpMgrSVC.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

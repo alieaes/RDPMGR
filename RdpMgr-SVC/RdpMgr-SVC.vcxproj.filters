@@ -36,6 +36,9 @@
     <Filter Include="Libs\Util">
       <UniqueIdentifier>{d11ce714-c16d-4fae-bd6e-40b57ea63463}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Libs\Windows">
+      <UniqueIdentifier>{9b524c3e-802b-4783-975e-100702d8df52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -46,6 +49,9 @@
     </ClCompile>
     <ClCompile Include="..\ExLibs\IPC\EXIPC.cpp">
       <Filter>Libs\IPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ExLibs\Windows\EXProcess.cpp">
+      <Filter>Libs\Windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +72,9 @@
     </ClInclude>
     <ClInclude Include="..\ExLibs\Util\ExDataStruct.hpp">
       <Filter>Libs\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ExLibs\Windows\EXProcess.hpp">
+      <Filter>Libs\Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
