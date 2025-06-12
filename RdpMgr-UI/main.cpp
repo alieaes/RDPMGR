@@ -1,10 +1,11 @@
-#include "cRdpMgrUI.h"
+#include "stdafx.h"
+#include "RdpMgrUI.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    cRdpMgrUI w;
+    RdpMgrUI w;
     w.show();
     return a.exec();
 }

@@ -2,9 +2,12 @@
 
 #include "CRdpMgrSVC.hpp"
 
+#include "EXIPC.hpp"
+
 CRdpMgrSVC::CRdpMgrSVC( int argc, char* argv[] )
     : QtService<QCoreApplication>( argc, argv, "SERVICE" )
 {
+    Ext::IPC::CreateIPC( L"RDPMGR", nullptr, this );
 }
 
 void CRdpMgrSVC::start()

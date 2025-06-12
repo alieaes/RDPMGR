@@ -76,6 +76,9 @@
     <ClInclude Include="..\ExLibs\Windows\EXProcess.hpp">
       <Filter>Libs\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\ExLibs\External\qtservice\qtservice.cpp">
@@ -84,5 +87,10 @@
     <QtMoc Include="..\ExLibs\External\qtservice\qtservice_win.cpp">
       <Filter>Libs\External\QtService</Filter>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="cRdpMgrSVC.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
 </Project>

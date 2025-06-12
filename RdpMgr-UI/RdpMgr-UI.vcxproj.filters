@@ -21,18 +21,33 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Libs">
+      <UniqueIdentifier>{9881bb71-ef56-4692-81e9-e500cfe6903e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libs\IPC">
+      <UniqueIdentifier>{fdc300a3-5fce-4d4d-a594-77ae380bb070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libs\Windows">
+      <UniqueIdentifier>{068b7fd5-3796-4539-80e3-ca8ab4df0dc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="cRdpMgrUI.qrc">
+    <QtRcc Include="RdpMgrUI.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="cRdpMgrUI.ui">
+    <QtUic Include="RdpMgrUI.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="cRdpMgrUI.h">
+    <QtMoc Include="RdpMgrUI.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="cRdpMgrUI.cpp">
+    <ClCompile Include="RdpMgrUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,5 +55,19 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\ExLibs\IPC\EXIPC.cpp">
+      <Filter>Libs\IPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ExLibs\Windows\EXProcess.cpp">
+      <Filter>Libs\Windows</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ExLibs\IPC\EXIPC.hpp">
+      <Filter>Libs\IPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ExLibs\Windows\EXProcess.hpp">
+      <Filter>Libs\Windows</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
